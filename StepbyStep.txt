@@ -1,0 +1,128 @@
+Ubuntu Tutorial
+------------------------------------------------------
+Prerequisites
+------------------------------------------------------
+1. sudo apt install python
+
+2. sudo apt install python3-pip
+------------------------------------------------------
+Create a project environment for the Django tutorial
+------------------------------------------------------
+1. mkdir hello_django
+
+2. cd hello_django
+
+3. sudo apt-get install python3-venv
+
+4. python3 -m venv env
+------------------------------------------------------
+Installing VS Code
+------------------------------------------------------
+1. sudo snap install --classic code
+------------------------------------------------------
+Running VS Code
+------------------------------------------------------
+1. code .
+
+2. Download python extension
+
+3. Command Panel, "Python: Select Interpreter"
+
+4. Select Python _._._ 64-bit ('env': venv)
+
+5. Terminal: Create New Integrated Terminal 
+(In settings.json add "python.pythonPath": "env/bin/python")
+
+6. python -m pip install --upgrade pip
+
+7. python -m pip install django
+
+Can use Ctrl+Shift+`
+To start integrated selfcontained enviroment
+------------------------------------------------------
+Setting up Django Project
+------------------------------------------------------
+1. django-admin startproject web_project .
+	Creates manage.py: Used for administrative utilities. Such as python manage.py <command>
+	Creates Subfolder: web_project
+		urls.py:  contains a table of contents for the Django project, which you also modify in the course of development.
+		wsgi.py: an entry point for WSGI-compatible web servers to serve your project. You typically leave this file as-is as it provides the hooks for production web servers.
+		settings.py: contains settings for Django project, which you modify in the course of developing a web app.
+		asgi.py: an entry point for ASGI-compatible web servers to serve your project. You typically leave this file as-is as it provides the hooks for production web servers.
+		__init__.py: an empty file that tells Python that this folder is a Python package.
+
+2. python manage.py migrate
+	Creates a empty development database: db.sqlite3
+
+3. python manage.py runserver
+	Verify's Django project
+
+4. Control Click the link: http://127.0.0.1:8000/
+------------------------------------------------------
+Creating Django Application
+------------------------------------------------------
+1. python manage.py startapp hello
+	Creates folder that contains
+	views.py: Contains the functions that define pages in your web app
+	models.py: Contains classes defining your data objects
+	/migrations: Is used by Django's administrative utility to manage database versions
+	apps.py: App configuration
+	admin.py: For creating an administrative interface
+	test.py: For creating tests
+2. Modify hello/views.py
+------------------------------------------------------
+from django.http import HttpResponse
+
+def home(request):
+    	return HttpResponse("Hello, Django!")
+------------------------------------------------------
+3. Create file hello/urls.py: urls.py will be used to specify patterns to route different URL's to their approriate view
+------------------------------------------------------
+from django.urls import path
+from hello import views
+
+urlpatterns = [
+    path("", views.home, name="home"),
+]
+------------------------------------------------------
+This will map "" to the views.home function that was just added to hello/views.py
+
+4. Modify web_project/urls.py: This is where the URL routing is actually happening
+------------------------------------------------------
+from django.contrib import admin
+from django.urls import include, path
+
+urlpatterns = [
+    path("", include("hello.urls")),
+    path('admin/', admin.site.urls)
+]
+------------------------------------------------------
+5. Run python manage.py runserver 8000 then ctrl+click: http://127.0.0.1:8000/
+
+6. Go to Run on left side of VS code screen and click add configuration file, then type django and click enter.
+This will allow debugging of program, see variable and automatically feed arguments into runserver command
+------------------------------------------------------
+Adding Templates (aka html)
+------------------------------------------------------
+1. In the web_project/settings.py file, locate the INSTALLED_APPS list and add the following entry, 
+which makes sure the project knows about the app so it can handle templating:
+	'hello',
+
+2. mkdir hello/templates
+
+3. mkdir hello/templates/hello
+
+4. touch hello/templates/hello/hello_there.html
+
+
+
+
+
+
+
+
+
+
+
+
+
