@@ -1,2 +1,2 @@
-export client_id=041fc85a51214411a1fb92c59ca35bf3
-export client_secret=041fc85a51214411a1fb92c59ca35bf3
+export SPOTIPY_CLIENT_ID=041fc85a51214411a1fb92c59ca35bf3
+export SPOTIPY_CLIENT_SECRET=add88cd20770440d9be798f1c345c0c4
